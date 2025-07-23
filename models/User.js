@@ -152,8 +152,8 @@ const userSchema = new mongoose.Schema({
 });
 
 // Indexes for performance
-userSchema.index({ email: 1 });
-userSchema.index({ username: 1 });
+// userSchema.index({ email: 1 });
+// userSchema.index({ username: 1 });
 userSchema.index({ isOnline: 1 });
 userSchema.index({ 'friends.user': 1 });
 userSchema.index({ createdAt: -1 });

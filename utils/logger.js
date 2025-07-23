@@ -1,8 +1,14 @@
-// utils/logger.js
 const winston = require('winston');
 const path = require('path');
+const fs = require('fs');
 
-// Define log levels
+// Create logs directory if it doesn't exist
+const logsDir = path.join(__dirname, '../logs');
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir, { recursive: true });
+}
+
+// Define custom log levels
 const logLevels = {
   error: 0,
   warn: 1,
@@ -20,42 +26,28 @@ const logColors = {
   debug: 'white',
 };
 
-// Add colors to winston
 winston.addColors(logColors);
 
-// Define log format
-const logFormat = winston.format.combine(
-  winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
-  winston.format.colorize({ all: true }),
-  winston.format.printf(
-    (info) => `${info.timestamp} ${info.level}: ${info.message}`
-  )
+// Define log format for files
+const fileLogFormat = winston.format.combine(
+  winston.format.timestamp(),
+  winston.format.errors({ stack: true }),
+  winston.format.json()
 );
 
-// Define transports
+// Define transports (NO console transport here — handled below based on environment)
 const transports = [
-  // Console transport
-  new winston.transports.Console({
-    format: logFormat,
-  }),
-  
   // Error log file
   new winston.transports.File({
-    filename: path.join(__dirname, '../logs/error.log'),
+    filename: path.join(logsDir, 'error.log'),
     level: 'error',
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json()
-    ),
+    format: fileLogFormat,
   }),
-  
+
   // Combined log file
   new winston.transports.File({
-    filename: path.join(__dirname, '../logs/combined.log'),
-    format: winston.format.combine(
-      winston.format.timestamp(),
-      winston.format.json()
-    ),
+    filename: path.join(logsDir, 'combined.log'),
+    format: fileLogFormat,
   }),
 ];
 
@@ -63,40 +55,28 @@ const transports = [
 const logger = winston.createLogger({
   level: process.env.LOG_LEVEL || 'info',
   levels: logLevels,
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.errors({ stack: true }),
-    winston.format.json()
-  ),
+  format: fileLogFormat,
   defaultMeta: { service: 'chatnest-backend' },
   transports,
   exceptionHandlers: [
-    new winston.transports.File({ 
-      filename: path.join(__dirname, '../logs/exceptions.log') 
-    }),
+    new winston.transports.File({ filename: path.join(logsDir, 'exceptions.log') }),
   ],
   rejectionHandlers: [
-    new winston.transports.File({ 
-      filename: path.join(__dirname, '../logs/rejections.log') 
-    }),
+    new winston.transports.File({ filename: path.join(logsDir, 'rejections.log') }),
   ],
 });
 
-// If we're not in production, log to the console with a simpler format
+// ✅ Add console logging only in non-production environments
 if (process.env.NODE_ENV !== 'production') {
   logger.add(new winston.transports.Console({
     format: winston.format.combine(
       winston.format.colorize(),
-      winston.format.simple()
-    )
+      winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss:ms' }),
+      winston.format.printf(
+        info => `${info.timestamp} ${info.level}: ${info.message}`
+      )
+    ),
   }));
-}
-
-// Create logs directory if it doesn't exist
-const fs = require('fs');
-const logsDir = path.join(__dirname, '../logs');
-if (!fs.existsSync(logsDir)) {
-  fs.mkdirSync(logsDir, { recursive: true });
 }
 
 module.exports = logger;

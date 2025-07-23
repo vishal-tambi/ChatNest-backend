@@ -1,4 +1,4 @@
-// models/Chat.js
+// models/Chat.js - Complete File
 const mongoose = require('mongoose');
 
 const chatSchema = new mongoose.Schema({
@@ -69,7 +69,7 @@ const chatSchema = new mongoose.Schema({
       enum: ['all', 'mentions', 'none'],
       default: 'all'
     },
-    customName: String, // Custom name for this chat (user-specific)
+    customName: String,
     isPinned: {
       type: Boolean,
       default: false
@@ -95,7 +95,7 @@ const chatSchema = new mongoose.Schema({
     },
     messageRetention: {
       type: Number,
-      default: 0 // 0 means forever, otherwise days
+      default: 0
     },
     allowFileSharing: {
       type: Boolean,
@@ -103,7 +103,7 @@ const chatSchema = new mongoose.Schema({
     },
     maxFileSize: {
       type: Number,
-      default: 10 * 1024 * 1024 // 10MB in bytes
+      default: 10 * 1024 * 1024
     },
     allowedFileTypes: [{
       type: String
@@ -149,7 +149,7 @@ const chatSchema = new mongoose.Schema({
     },
     totalSize: {
       type: Number,
-      default: 0 // in bytes
+      default: 0
     }
   }
 }, {
@@ -163,10 +163,8 @@ chatSchema.index({ participants: 1 });
 chatSchema.index({ type: 1 });
 chatSchema.index({ lastActivity: -1 });
 chatSchema.index({ createdBy: 1 });
-chatSchema.index({ inviteCode: 1 });
+// chatSchema.index({ inviteCode: 1 });
 chatSchema.index({ 'participants.user': 1, 'participants.isActive': 1 });
-
-// Compound indexes
 chatSchema.index({ type: 1, lastActivity: -1 });
 chatSchema.index({ 'participants.user': 1, lastActivity: -1 });
 
@@ -182,10 +180,8 @@ chatSchema.virtual('admins').get(function() {
 
 // Pre-save middleware
 chatSchema.pre('save', function(next) {
-  // Update lastActivity when chat is modified
   this.lastActivity = new Date();
   
-  // Auto-generate name for private chats
   if (this.type === 'private' && !this.name && this.participants.length === 2) {
     this.name = 'Private Chat';
   }
@@ -197,7 +193,7 @@ chatSchema.pre('save', function(next) {
 chatSchema.methods.generateInviteCode = function() {
   const crypto = require('crypto');
   this.inviteCode = crypto.randomBytes(16).toString('hex');
-  this.inviteExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+  this.inviteExpires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
   return this.inviteCode;
 };
 
@@ -230,7 +226,6 @@ chatSchema.methods.addParticipant = function(userId, role = 'member', addedBy = 
   );
 
   if (existingIndex !== -1) {
-    // Reactivate if they were previously removed
     this.participants[existingIndex].isActive = true;
     this.participants[existingIndex].leftAt = undefined;
     this.participants[existingIndex].joinedAt = new Date();
@@ -319,4 +314,116 @@ chatSchema.statics.findUserChats = function(userId, options = {}) {
     query['archivedBy.user'] = { $ne: userId };
   }
 
-  if
+  if (type) {
+    query.type = type;
+  }
+
+  return this.find(query)
+    .populate('lastMessage', 'content type sender createdAt')
+    .populate('participants.user', 'name username avatar isOnline lastSeen')
+    .sort({ lastActivity: -1 })
+    .limit(limit)
+    .skip(skip)
+    .lean();
+};
+
+// Static method to create private chat
+chatSchema.statics.createPrivateChat = async function(user1Id, user2Id) {
+  const existingChat = await this.findOne({
+    type: 'private',
+    'participants.user': { $all: [user1Id, user2Id] },
+    'participants.isActive': true
+  });
+
+  if (existingChat && existingChat.activeParticipantsCount === 2) {
+    return existingChat;
+  }
+
+  const chat = new this({
+    type: 'private',
+    participants: [
+      { user: user1Id, role: 'member' },
+      { user: user2Id, role: 'member' }
+    ],
+    createdBy: user1Id
+  });
+
+  return await chat.save();
+};
+
+// Static method to create group chat
+chatSchema.statics.createGroupChat = async function(creatorId, name, description, participantIds = []) {
+  const chat = new this({
+    name,
+    description,
+    type: 'group',
+    participants: [
+      { user: creatorId, role: 'admin' },
+      ...participantIds.map(id => ({ user: id, role: 'member' }))
+    ],
+    createdBy: creatorId
+  });
+
+  return await chat.save();
+};
+
+// Method to get chat info for a specific user
+chatSchema.methods.getChatInfo = function(userId) {
+  const participant = this.getParticipant(userId);
+  if (!participant) return null;
+
+  const chatInfo = {
+    _id: this._id,
+    name: participant.customName || this.name,
+    description: this.description,
+    type: this.type,
+    avatar: this.avatar,
+    lastActivity: this.lastActivity,
+    activeParticipantsCount: this.activeParticipantsCount,
+    isPinned: participant.isPinned,
+    isMuted: participant.isMuted,
+    muteUntil: participant.muteUntil,
+    notifications: participant.notifications,
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt
+  };
+
+  const isArchived = this.archivedBy.some(a => 
+    a.user.toString() === userId.toString()
+  );
+  chatInfo.isArchived = isArchived;
+
+  if (this.type === 'private') {
+    const otherParticipant = this.participants.find(p => 
+      p.user._id && p.user._id.toString() !== userId.toString() && p.isActive
+    );
+    if (otherParticipant && otherParticipant.user) {
+      chatInfo.otherParticipant = {
+        _id: otherParticipant.user._id,
+        name: otherParticipant.user.name,
+        username: otherParticipant.user.username,
+        avatar: otherParticipant.user.avatar,
+        isOnline: otherParticipant.user.isOnline,
+        lastSeen: otherParticipant.user.lastSeen
+      };
+    }
+  }
+
+  return chatInfo;
+};
+
+// Method to update chat settings
+chatSchema.methods.updateSettings = function(newSettings) {
+  this.settings = { ...this.settings, ...newSettings };
+  this.lastActivity = new Date();
+  return this.save();
+};
+
+// Method to increment message count
+chatSchema.methods.incrementMessageCount = function() {
+  this.metadata.messageCount += 1;
+  this.lastActivity = new Date();
+  return this.save();
+};
+
+module.exports = mongoose.model('Chat', chatSchema);

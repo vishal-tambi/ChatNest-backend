@@ -1,6 +1,7 @@
-// middleware/auth.js
+// middleware/auth.js - Complete File
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Chat = require('../models/Chat');
 const logger = require('../utils/logger');
 
 // Authenticate JWT token
@@ -147,7 +148,6 @@ const canAccessChat = async (req, res, next) => {
       });
     }
 
-    const Chat = require('../models/Chat');
     const chat = await Chat.findById(chatId);
 
     if (!chat) {
@@ -263,6 +263,18 @@ const friendRequestRateLimit = createActionLimiter(
   'Friend request rate limit exceeded. Please try again later.'
 );
 
+const chatCreationRateLimit = createActionLimiter(
+  60 * 60 * 1000, // 1 hour
+  50, // 50 chats per hour
+  'Chat creation rate limit exceeded. Please try again later.'
+);
+
+const searchRateLimit = createActionLimiter(
+  60 * 1000, // 1 minute
+  60, // 60 searches per minute
+  'Search rate limit exceeded. Please slow down.'
+);
+
 // Validate request data middleware
 const validateRequest = (schema) => {
   return (req, res, next) => {
@@ -310,12 +322,285 @@ const updateUserActivity = async (req, res, next) => {
   }
 };
 
+// Check if user owns resource
+const checkOwnership = (resourceField = 'user') => {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Authentication required.'
+      });
+    }
+
+    // Get resource from different sources
+    let resourceUserId;
+    
+    if (req.resource && req.resource[resourceField]) {
+      resourceUserId = req.resource[resourceField];
+    } else if (req.params.userId) {
+      resourceUserId = req.params.userId;
+    } else if (req.body[resourceField]) {
+      resourceUserId = req.body[resourceField];
+    }
+
+    if (!resourceUserId) {
+      return res.status(400).json({
+        success: false,
+        message: 'Resource ownership cannot be determined.'
+      });
+    }
+
+    if (resourceUserId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: 'Access denied. You can only access your own resources.'
+      });
+    }
+
+    next();
+  };
+};
+
+// Check if user can moderate chat (admin or moderator)
+const canModerateChat = async (req, res, next) => {
+  try {
+    const chat = req.chat; // Assumes canAccessChat middleware ran first
+    
+    if (!chat) {
+      return res.status(400).json({
+        success: false,
+        message: 'Chat information not available.'
+      });
+    }
+
+    const participant = chat.getParticipant(req.user._id);
+    
+    if (!participant || !['admin', 'moderator'].includes(participant.role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Only chat administrators and moderators can perform this action.'
+      });
+    }
+
+    next();
+  } catch (error) {
+    logger.error('Chat moderation check error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to verify moderation permissions.'
+    });
+  }
+};
+
+// Check if user can send messages in chat
+const canSendMessages = async (req, res, next) => {
+  try {
+    const chat = req.chat; // Assumes canAccessChat middleware ran first
+    
+    if (!chat) {
+      return res.status(400).json({
+        success: false,
+        message: 'Chat information not available.'
+      });
+    }
+
+    const participant = chat.getParticipant(req.user._id);
+    
+    if (!participant || !participant.permissions.canSendMessages) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not have permission to send messages in this chat.'
+      });
+    }
+
+    next();
+  } catch (error) {
+    logger.error('Send message permission check error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to verify message permissions.'
+    });
+  }
+};
+
+// Check if user can send media in chat
+const canSendMedia = async (req, res, next) => {
+  try {
+    const chat = req.chat; // Assumes canAccessChat middleware ran first
+    
+    if (!chat) {
+      return res.status(400).json({
+        success: false,
+        message: 'Chat information not available.'
+      });
+    }
+
+    const participant = chat.getParticipant(req.user._id);
+    
+    if (!participant || !participant.permissions.canSendMedia) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not have permission to send media in this chat.'
+      });
+    }
+
+    next();
+  } catch (error) {
+    logger.error('Send media permission check error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to verify media permissions.'
+    });
+  }
+};
+
+// Check if user can add members to chat
+const canAddMembers = async (req, res, next) => {
+  try {
+    const chat = req.chat; // Assumes canAccessChat middleware ran first
+    
+    if (!chat) {
+      return res.status(400).json({
+        success: false,
+        message: 'Chat information not available.'
+      });
+    }
+
+    if (chat.type === 'private') {
+      return res.status(400).json({
+        success: false,
+        message: 'Cannot add members to private chat.'
+      });
+    }
+
+    const participant = chat.getParticipant(req.user._id);
+    
+    if (!participant || (!participant.permissions.canAddMembers && participant.role !== 'admin')) {
+      return res.status(403).json({
+        success: false,
+        message: 'You do not have permission to add members to this chat.'
+      });
+    }
+
+    next();
+  } catch (error) {
+    logger.error('Add members permission check error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Failed to verify add members permissions.'
+    });
+  }
+};
+
+// Check if user is blocked by another user
+const checkBlocked = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    
+    if (!userId) {
+      return next();
+    }
+
+    const targetUser = await User.findById(userId).select('blockedUsers');
+    
+    if (targetUser && targetUser.blockedUsers.includes(req.user._id)) {
+      return res.status(403).json({
+        success: false,
+        message: 'You have been blocked by this user.'
+      });
+    }
+
+    // Check if current user has blocked the target user
+    const currentUser = await User.findById(req.user._id).select('blockedUsers');
+    
+    if (currentUser && currentUser.blockedUsers.includes(userId)) {
+      return res.status(403).json({
+        success: false,
+        message: 'You have blocked this user.'
+      });
+    }
+
+    next();
+  } catch (error) {
+    logger.error('Block check error:', error);
+    next(); // Continue if block check fails
+  }
+};
+
+// Middleware to prevent self-targeting actions
+const preventSelfTarget = (req, res, next) => {
+  const { userId } = req.params;
+  
+  if (userId && userId === req.user._id.toString()) {
+    return res.status(400).json({
+      success: false,
+      message: 'You cannot perform this action on yourself.'
+    });
+  }
+  
+  next();
+};
+
+// Advanced rate limiting with different limits for different user types
+const createAdvancedRateLimit = (config) => {
+  const attempts = new Map();
+  
+  return (req, res, next) => {
+    const userId = req.user._id.toString();
+    const userType = req.user.role || 'user';
+    const limits = config[userType] || config.default;
+    
+    if (!limits) {
+      return next();
+    }
+    
+    const { windowMs, max, message } = limits;
+    const now = Date.now();
+    const windowStart = now - windowMs;
+    
+    // Clean old attempts
+    if (attempts.has(userId)) {
+      const userAttempts = attempts.get(userId).filter(time => time > windowStart);
+      attempts.set(userId, userAttempts);
+    }
+    
+    const userAttempts = attempts.get(userId) || [];
+    
+    if (userAttempts.length >= max) {
+      return res.status(429).json({
+        success: false,
+        message: message || 'Rate limit exceeded.',
+        retryAfter: Math.ceil((userAttempts[0] + windowMs - now) / 1000)
+      });
+    }
+    
+    userAttempts.push(now);
+    attempts.set(userId, userAttempts);
+    
+    next();
+  };
+};
+
 module.exports = {
   authenticate,
   optionalAuth,
   authorize,
   canAccessChat,
   canModifyChat,
+  canModerateChat,
+  canSendMessages,
+  canSendMedia,
+  canAddMembers,
   messageRateLimit,
   fileUploadRateLimit,
   friendRequestRateLimit,
+  chatCreationRateLimit,
+  searchRateLimit,
+  validateRequest,
+  updateUserActivity,
+  createActionLimiter,
+  createAdvancedRateLimit,
+  checkOwnership,
+  checkBlocked,
+  preventSelfTarget
+};
