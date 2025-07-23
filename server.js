@@ -19,8 +19,8 @@ const userRoutes = require('./routes/users');
 const chatRoutes = require('./routes/chats');
 const messageRoutes = require('./routes/messages');
 const uploadRoutes = require('./routes/upload');
-const friendRoutes = require('./routes/friends');
-const callRoutes = require('./routes/calls');
+// const friendRoutes = require('./routes/friends');
+// const callRoutes = require('./routes/calls');
 
 // Import middleware
 const { authenticate } = require('./middleware/auth');
@@ -148,8 +148,8 @@ app.use('/api/users', authenticate, userRoutes);
 app.use('/api/chats', authenticate, chatRoutes);
 app.use('/api/messages', authenticate, messageRoutes);
 app.use('/api/upload', authenticate, uploadRoutes);
-app.use('/api/friends', authenticate, friendRoutes);
-app.use('/api/calls', authenticate, callRoutes);
+// app.use('/api/friends', authenticate, friendRoutes);
+// app.use('/api/calls', authenticate, callRoutes);
 
 // Socket.IO handling
 io.use((socket, next) => {
@@ -186,12 +186,9 @@ app.use(errorHandler);
 const connectDB = async (retries = 5) => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      bufferMaxEntries: 0
+      socketTimeoutMS: 45000
     });
 
     logger.info(`MongoDB Connected: ${conn.connection.host}`);
@@ -250,7 +247,7 @@ process.on('uncaughtException', (err) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
 const startServer = async () => {
   try {

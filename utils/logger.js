@@ -59,10 +59,7 @@ const logger = winston.createLogger({
   defaultMeta: { service: 'chatnest-backend' },
   transports,
   exceptionHandlers: [
-    new winston.transports.File({ filename: path.join(logsDir, 'exceptions.log') }),
-  ],
-  rejectionHandlers: [
-    new winston.transports.File({ filename: path.join(logsDir, 'rejections.log') }),
+    new winston.transports.File({ filename: path.join(logsDir, 'exceptions.log') })
   ],
 });
 
