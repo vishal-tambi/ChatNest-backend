@@ -8,6 +8,40 @@ const logger = require('../utils/logger');
 
 const router = express.Router();
 
+// @route   GET /api/users/all
+// @desc    Get all users (for testing/demo purposes)
+// @access  Private
+router.get('/all', async (req, res) => {
+  try {
+    const { limit = 50, page = 1 } = req.query;
+    const skip = (page - 1) * limit;
+
+    const users = await User.find({ _id: { $ne: req.user._id } })
+      .select('name username email avatar bio isOnline lastSeen status createdAt')
+      .sort({ createdAt: -1 })
+      .limit(parseInt(limit))
+      .skip(skip)
+      .lean();
+
+    const total = await User.countDocuments({ _id: { $ne: req.user._id } });
+
+    res.json({
+      success: true,
+      users,
+      total,
+      currentPage: parseInt(page),
+      totalPages: Math.ceil(total / limit)
+    });
+
+  } catch (error) {
+    logger.error('Get all users error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch users'
+    });
+  }
+});
+
 // @route   GET /api/users/search
 // @desc    Search for users
 // @access  Private

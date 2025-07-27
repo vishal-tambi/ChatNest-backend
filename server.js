@@ -17,9 +17,10 @@ require('dotenv').config();
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const chatRoutes = require('./routes/chats');
+
 const messageRoutes = require('./routes/messages');
 const uploadRoutes = require('./routes/upload');
-// const friendRoutes = require('./routes/friends');
+const friendRoutes = require('./routes/friends');
 // const callRoutes = require('./routes/calls');
 
 // Import middleware
@@ -148,7 +149,7 @@ app.use('/api/users', authenticate, userRoutes);
 app.use('/api/chats', authenticate, chatRoutes);
 app.use('/api/messages', authenticate, messageRoutes);
 app.use('/api/upload', authenticate, uploadRoutes);
-// app.use('/api/friends', authenticate, friendRoutes);
+app.use('/api/friends', authenticate, friendRoutes);
 // app.use('/api/calls', authenticate, callRoutes);
 
 // Socket.IO handling

@@ -71,3 +71,149 @@
 {"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-02.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-23T17:49:16.747Z"}
 {"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-23T17:49:16.755Z"}
 {"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-23T17:49:25.605Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-00.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T09:15:31.310Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T09:15:31.321Z"}
+{"level":"info","message":"New user registered: test@example.com","service":"chatnest-backend","timestamp":"2025-07-27T09:35:15.006Z"}
+{"level":"info","message":"User logged in: test@example.com","service":"chatnest-backend","timestamp":"2025-07-27T09:35:26.100Z"}
+{"level":"info","message":"New user registered: tambivishal12@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T09:39:43.586Z"}
+{"level":"info","message":"User connected: vishal tambi (6885f3df6d0b0caf93c3ff86)","service":"chatnest-backend","timestamp":"2025-07-27T09:39:43.704Z"}
+{"level":"info","message":"User logged in: test@example.com","service":"chatnest-backend","timestamp":"2025-07-27T09:41:11.568Z"}
+{"level":"info","message":"User connected: vishal tambi (6885f3df6d0b0caf93c3ff86)","service":"chatnest-backend","timestamp":"2025-07-27T09:42:51.574Z"}
+{"level":"info","message":"User disconnected: vishal tambi (6885f3df6d0b0caf93c3ff86)","service":"chatnest-backend","timestamp":"2025-07-27T09:43:00.185Z"}
+{"level":"info","message":"User disconnected: vishal tambi (6885f3df6d0b0caf93c3ff86)","service":"chatnest-backend","timestamp":"2025-07-27T09:43:03.597Z"}
+{"level":"info","message":"New user registered: yashtambi3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T09:43:31.126Z"}
+{"level":"info","message":"User connected: yash tambi (6885f4c26d0b0caf93c3ffbc)","service":"chatnest-backend","timestamp":"2025-07-27T09:43:31.243Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T09:44:18.935Z"}
+{"level":"info","message":"User disconnected: yash tambi (6885f4c26d0b0caf93c3ffbc)","service":"chatnest-backend","timestamp":"2025-07-27T09:44:24.970Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-02.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T09:44:30.645Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T09:44:30.656Z"}
+{"level":"info","message":"User connected: yash tambi (6885f4c26d0b0caf93c3ffbc)","service":"chatnest-backend","timestamp":"2025-07-27T09:44:31.562Z"}
+{"level":"info","message":"User disconnected: yash tambi (6885f4c26d0b0caf93c3ffbc)","service":"chatnest-backend","timestamp":"2025-07-27T09:45:02.551Z"}
+{"level":"info","message":"New user registered: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:02:48.812Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:02:49.565Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:02:52.156Z"}
+{"level":"info","message":"New user registered: yashtambi3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:03:17.469Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:03:17.887Z"}
+{"level":"info","message":"User disconnected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:03:32.069Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:03:44.517Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:03:44.914Z"}
+{"kind":"ObjectId","level":"error","message":"Send message error: Cast to ObjectId failed for value \"group-1753610773190\" (type string) at path \"_id\" for model \"Chat\"","path":"_id","reason":{},"service":"chatnest-backend","stack":"CastError: Cast to ObjectId failed for value \"group-1753610773190\" (type string) at path \"_id\" for model \"Chat\"\n    at SchemaObjectId.cast (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\schema\\objectId.js:251:11)\n    at SchemaType.applySetters (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\schemaType.js:1258:12)\n    at SchemaType.castForQuery (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\schemaType.js:1676:17)\n    at cast (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\cast.js:390:32)\n    at Query.cast (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\query.js:5055:12)\n    at Query._castConditions (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\query.js:2351:10)\n    at model.Query._findOne (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\query.js:2674:8)\n    at model.Query.exec (C:\\ChatNext\\backend\\node_modules\\mongoose\\lib\\query.js:4604:80)\n    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n    at async Socket.<anonymous> (C:\\ChatNext\\backend\\socket\\socketHandler.js:134:24)","stringValue":"\"group-1753610773190\"","timestamp":"2025-07-27T10:06:27.341Z","value":"group-1753610773190","valueType":"string"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:10:17.185Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:10:17.450Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:10:18.563Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:10:18.787Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:11:18.577Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:11:21.385Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-02.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:11:35.013Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:11:35.032Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:11:38.011Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:11:45.917Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:11:49.035Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-01.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:11:59.318Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:11:59.327Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:12:21.718Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:12:22.098Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:13:36.816Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:13:37.935Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:13:38.239Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:17:37.189Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:17:37.345Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:21:48.890Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:21:49.997Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:22:18.088Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:22:24.397Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-01.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:22:26.886Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:22:26.896Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:22:28.180Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:22:30.781Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:22:33.349Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-01.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:22:39.751Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:22:39.759Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:22:51.632Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:22:51.760Z"}
+{"level":"info","message":"Friend request sent from 6885f947fa4dbf17f73ba9ad to 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:23:01.452Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:23:06.386Z"}
+{"level":"info","message":"User logged in: yashtambi3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:23:14.522Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:23:14.627Z"}
+{"level":"info","message":"Friend request accepted: 6885f947fa4dbf17f73ba9ad and 6885f964fa4dbf17f73ba9b9 are now friends","service":"chatnest-backend","timestamp":"2025-07-27T10:23:19.969Z"}
+{"level":"info","message":"Chat created: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:23:47.640Z"}
+{"level":"info","message":"Chat created: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:23:51.403Z"}
+{"level":"info","message":"Chat created: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:25:46.943Z"}
+{"level":"info","message":"Chat created: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:25:48.786Z"}
+{"level":"info","message":"Message sent: 6885ff13dea270c015932972 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:27:31.437Z"}
+{"level":"info","message":"Message sent: 6885ff35dea270c015932980 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:28:05.573Z"}
+{"level":"info","message":"User disconnected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:28:09.873Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:28:22.004Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:28:22.139Z"}
+{"level":"info","message":"Message sent: 6885ff4bdea270c0159329a7 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:28:28.059Z"}
+{"level":"info","message":"Message sent: 6885ff4fdea270c0159329b5 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:28:31.823Z"}
+{"level":"info","message":"Message sent: 6885ff64dea270c0159329c3 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:28:52.934Z"}
+{"level":"info","message":"Message sent: 6885ff6fdea270c0159329e1 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:29:04.136Z"}
+{"level":"info","message":"Message sent: 6885ff73dea270c0159329ef in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:29:07.704Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:29:11.946Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:29:17.176Z"}
+{"level":"info","message":"HTTP server closed","service":"chatnest-backend","timestamp":"2025-07-27T10:29:17.180Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-01.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:29:28.479Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:29:28.489Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:29:47.225Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:29:47.377Z"}
+{"level":"info","message":"Message sent: 6885ff9ff5ec7c14bbf4a613 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:29:52.507Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:30:03.968Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:30:05.167Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:30:05.817Z"}
+{"level":"info","message":"Message sent: 6885ffb0f5ec7c14bbf4a648 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:30:08.787Z"}
+{"level":"info","message":"Message sent: 6885ffb7f5ec7c14bbf4a656 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:30:15.609Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:30:20.153Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:30:32.135Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:30:32.267Z"}
+{"level":"info","message":"Message sent: 6885ffcdf5ec7c14bbf4a67d in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:30:37.974Z"}
+{"level":"info","message":"Message sent: 6885fff5f5ec7c14bbf4a6a0 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:31:18.216Z"}
+{"level":"info","message":"Message sent: 6885fff8f5ec7c14bbf4a6ae in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:31:20.417Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:33:42.671Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-02.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:33:53.246Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:33:53.255Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:34:00.521Z"}
+{"level":"info","message":"HTTP server closed","service":"chatnest-backend","timestamp":"2025-07-27T10:34:00.527Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:34:03.700Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-00.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:34:09.845Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:34:09.854Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:34:21.017Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:34:21.158Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:34:52.490Z"}
+{"level":"info","message":"User logged in: yashtambi3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:35:00.113Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:35:00.235Z"}
+{"level":"info","message":"User disconnected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:35:14.611Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:35:29.105Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:35:29.207Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:36:52.201Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:36:52.286Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:36:52.364Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:02.901Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:04.031Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:04.095Z"}
+{"level":"info","message":"Message sent: 6886015252627e92a75bdba5 in chat: 6885fe33dea270c015932944 by user: 6885f947fa4dbf17f73ba9ad","service":"chatnest-backend","timestamp":"2025-07-27T10:37:06.195Z"}
+{"level":"info","message":"User disconnected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:06.263Z"}
+{"level":"info","message":"Message sent: 6886015252627e92a75bdbb1 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:37:06.430Z"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"chatnest-backend","timestamp":"2025-07-27T10:37:16.835Z"}
+{"level":"info","message":"MongoDB Connected: ac-20nhn76-shard-00-01.fd1gf41.mongodb.net","service":"chatnest-backend","timestamp":"2025-07-27T10:37:35.057Z"}
+{"level":"info","message":"Server running in development mode on port 5000","service":"chatnest-backend","timestamp":"2025-07-27T10:37:35.066Z"}
+{"level":"info","message":"User logged in: yashtambi3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:37:45.394Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:45.550Z"}
+{"level":"info","message":"Message sent: 68860180e63407f3f9e04a52 in chat: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:37:53.029Z"}
+{"level":"info","message":"User disconnected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:37:53.055Z"}
+{"level":"info","message":"Message sent: 68860181e63407f3f9e04a5f in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:37:53.495Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:38:37.333Z"}
+{"level":"info","message":"User connected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:38:37.618Z"}
+{"level":"info","message":"Message sent: 688601cbe63407f3f9e04a9b in chat: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:39:07.688Z"}
+{"level":"info","message":"Message sent: 688601cbe63407f3f9e04aa7 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:39:07.904Z"}
+{"level":"info","message":"Message sent: 688601cde63407f3f9e04ab6 in chat: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:39:09.258Z"}
+{"level":"info","message":"Message sent: 688601cde63407f3f9e04ac2 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:39:09.462Z"}
+{"level":"info","message":"Message sent: 688601cee63407f3f9e04ad1 in chat: 6885fe33dea270c015932944 by user: 6885f964fa4dbf17f73ba9b9","service":"chatnest-backend","timestamp":"2025-07-27T10:39:10.359Z"}
+{"level":"info","message":"Message sent: 688601cee63407f3f9e04add in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:39:10.563Z"}
+{"level":"info","message":"User disconnected: Yash Tambi (6885f964fa4dbf17f73ba9b9)","service":"chatnest-backend","timestamp":"2025-07-27T10:39:16.162Z"}
+{"level":"info","message":"User logged in: tambivishal3@gmail.com","service":"chatnest-backend","timestamp":"2025-07-27T10:39:35.983Z"}
+{"level":"info","message":"User connected: Vishal Tambi (6885f947fa4dbf17f73ba9ad)","service":"chatnest-backend","timestamp":"2025-07-27T10:39:36.137Z"}
+{"level":"info","message":"Message sent: 688601eee63407f3f9e04b0c in chat: 6885fe33dea270c015932944 by user: 6885f947fa4dbf17f73ba9ad","service":"chatnest-backend","timestamp":"2025-07-27T10:39:42.720Z"}
+{"level":"info","message":"Message sent: 688601eee63407f3f9e04b18 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:39:42.934Z"}
+{"level":"info","message":"Message sent: 688601f0e63407f3f9e04b27 in chat: 6885fe33dea270c015932944 by user: 6885f947fa4dbf17f73ba9ad","service":"chatnest-backend","timestamp":"2025-07-27T10:39:44.662Z"}
+{"level":"info","message":"Message sent: 688601f0e63407f3f9e04b33 in chat: 6885fe33dea270c015932944","service":"chatnest-backend","timestamp":"2025-07-27T10:39:44.866Z"}
